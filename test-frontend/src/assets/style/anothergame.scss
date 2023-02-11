@@ -1,11 +1,56 @@
 @import "variables.scss";
 
-.title-nav{
+.title-nav {
     font-family: versa;
+    color: white;
+
 }
 
-// .align-items-center {
-//     display: flex; 
-//     align-items: center;  /*Aligns vertically center */
-//     justify-content: center; /*Aligns horizontally center */
-//   }
+a.title-nav,
+a.title-nav:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.nav {
+    background: rgb(35, 39, 48);
+    background: linear-gradient(90deg, rgba(35, 39, 48, 1) 0%, rgba(52, 58, 64, 1) 100%);
+}
+
+.navbutton {
+    color: white;
+}
+
+
+.btn-display {
+    background-color: white;
+    border-color: grey;
+    color: grey;
+    padding: 8px;
+    margin: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-display:hover {
+    background-color: grey;
+}
+
+b-icon-grid,
+b-icon-list-task {
+    margin: none;
+    height: 27px;
+    width: 27px;
+}
+
+
+.btn-primary {
+    margin-right: 10px;
+    padding: 10;
+    height:50px;
+    width: 100px;
+    align-self: center;
+    
+}

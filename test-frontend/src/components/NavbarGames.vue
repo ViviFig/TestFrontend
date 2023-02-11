@@ -1,12 +1,15 @@
 <template>
-  <nav class="navbar navbar-light  bg-light">
-    <a class="navbar-brand mx-4 title-nav">ANOTHER GAME</a>
-    <form class="row ms-auto mx-4">
+  <nav class="navbar nav">
+    <a class="navbar-brand mx-2" href="#">
+    <img src="@/assets/images/sword.svg" width="45" height="45" alt="sword">
+  </a>
+    <a class="mx-2 title-nav navbar-brand">ANOTHER GAME</a>
+    <form class="row ms-auto mx-2">
   <div class="col">
       <input class="form-control mr-sm-2" type="search" placeholder="Search">                
   </div>
   <div class="col-auto">
-      <button class="btn my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn my-2 my-sm-0 navbutton" type="submit">Search</button>
   </div>
 </form>
   </nav>
