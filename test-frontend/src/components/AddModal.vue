@@ -1,34 +1,57 @@
 <template>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+    <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" @click="ToggleModal()">
+        <div class="modal-dialog " @click.stop="">
+            <div class="modal-content modal-large px-5 py-4">
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="Game name here...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label"
+                                placeholder="Describe the game here...">Description:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Release date</label>
+                            <input type="date" class="form-control" id="recipient-name" value="2023-01-30">
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Genre</label>
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Default radio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                                checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Default checked radio
+                            </label>
+                        </div>
+                        </div>
+                      
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">             
+                    <button type="button" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
 </template>
+
+<script>
+export default {
+    name: "add-modal",
+
+    props: ['ToggleModal']
+};
+</script>

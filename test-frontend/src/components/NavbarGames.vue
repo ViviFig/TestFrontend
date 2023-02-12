@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar nav">
+  <nav class="navbar nav p-0">
     <a class="navbar-brand mx-2" href="#">
     <img src="@/assets/images/sword.svg" width="45" height="45" alt="sword">
   </a>

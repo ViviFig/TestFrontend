@@ -19,6 +19,7 @@ a.title-nav:hover {
 
 .navbutton {
     color: white;
+    border-color: white;
 }
 
 
@@ -49,8 +50,27 @@ b-icon-list-task {
 .btn-primary {
     margin-right: 10px;
     padding: 10;
-    height:50px;
+    height:30px;
     width: 100px;
     align-self: center;
     
 }
+
+.modal{
+   position:fixed;
+   margin: 0;
+   z-index: 99;
+   background-color: rgba(0,0,0,0.2);
+   display: flex;
+   align-items: center;
+   justify-content: center; 
+}
+
+.modal-large{
+    width: 500px;
+}
+
+.table thead th {
+    border-bottom: 2px solid black;
+    border-top:  2px solid black;
+  }
