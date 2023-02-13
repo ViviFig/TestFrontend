@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container">
+  <div class="container" >
     <add-modal v-if="popupTriggers.buttonTrigger" :ToggleModal="() => ToggleModal('buttonTrigger')" />
 
     <div class="justify-content-between d-flex flex-row">
@@ -28,33 +28,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="col">1</th>
-          <td>thetitle</td>
-          <td>this is a very long description of the game</td>
-          <td>theyear</td>
-          <td>thegenre</td>
+        <tr v-for="game in games" :key="game.id">
+          <th scope="col">{{game.id }}</th>
+          <td>{{ game.label }}</td>
+          <td> {{ game.description }}</td>
+          <td>{{ game.date }}</td>
+          <td>{{ game.color }}</td>
           <td><b-icon-info-square /></td>
           <td><b-icon-pencil-square /></td>
         </tr>
-        <tr>
-          <th scope="col">2</th>
-          <td>thetitle</td>
-          <td>theDescription</td>
-          <td>theyear</td>
-          <td>thegenre</td>
-          <td><b-icon-info-square /></td>
-          <td><b-icon-pencil-square /></td>
-        </tr>
-        <tr>
-          <th scope="col">3</th>
-          <td>thetitle</td>
-          <td>theDescription</td>
-          <td>theyear</td>
-          <td>thegenre</td>
-          <td><b-icon-info-square /></td>
-          <td><b-icon-pencil-square /></td>
-        </tr>
+
       </tbody>
 
     </table>
@@ -65,10 +48,18 @@
 <script>
 import { ref } from 'vue';
 import { AddModal } from './AddModal.vue';
-import axios from 'axios';
-export default {
 
+
+
+export default {
+  props: ['games'],
+  data() {
+    return {
+      date: new Date()
+    };
+  },
   setup() {
+    
     const popupTriggers = ref({
       buttonTrigger: false,
     });
@@ -84,25 +75,24 @@ export default {
       ToggleModal
     }
   },
-data(){
-return {
-  games:[]
-};
-},
+
   components: {
     AddModal,
   },
-  mounted() {
-    axios.get('https://frontend-test-api.anothereality.io/data/retrieve/all?api-version=1')
-      .then(response => {
-        this.games = response.data;
-        console.log(this.games);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+  methods: {
+    formatDate(dateString) {
+      const date = new Date(dateString);
 
+      return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(date);
+    },
+    truncate(value, length) {
+      if (value.length > length) {
+        return value.substring(0, length) + "...";
+      } else {
+        return value;
+      }
+    },
+ }
 };
 </script>
 
