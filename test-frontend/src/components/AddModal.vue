@@ -7,32 +7,32 @@
                     <form>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="recipient-name" placeholder="Game name here...">
+                            <input type="text" class="form-control" id="recipient-name"  placeholder="Game name here..." v-model="newGame.label">
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label"
                                 placeholder="Describe the game here...">Description:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <textarea class="form-control" id="message-text" v-model="newGame.description"></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Release date</label>
-                            <input type="date" class="form-control" id="recipient-name" value="2023-01-30">
+                            <input type="date" class="form-control" id="recipient-name" value="2023-01-30" v-model="newGame.date">
                         </div>
 
 
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Genre</label>
-                            <div class="form-check">
+                            <label for="recipient-name" class="col-form-label" >Genre</label>
+                            <div class="form-check" >
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1">
+                                    id="flexRadioDefault1" v-model="newGame.color">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Default radio
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked>
+                                    id="flexRadioDefault2" checked v-model="newGame.color">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Default checked radio
                                 </label>
@@ -55,12 +55,13 @@ export default {
 
     data() {
         return {
+        
             newGame: {
-                label: "TestGame",
-                description: "Testdescription",
-                date: "2023-02-13T18:00:43.791Z",
-                color: "Black"
-            }
+                label: '',
+                description: '',
+                date: '',
+                color:''
+      },
         }
 
     },
