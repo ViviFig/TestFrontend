@@ -7,7 +7,8 @@
                     <form>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="recipient-name"  placeholder="Game name here..." v-model="newGame.label">
+                            <input type="text" class="form-control" id="recipient-name" placeholder="Game name here..."
+                                v-model="newGame.label">
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label"
@@ -17,13 +18,13 @@
 
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Release date</label>
-                            <input type="date" class="form-control" id="recipient-name" value="2023-01-30" v-model="newGame.date">
+                            <input type="date" class="form-control" id="recipient-name" v-model="newGame.date">
                         </div>
 
 
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label" >Genre</label>
-                            <div class="form-check" >
+                            <label for="recipient-name" class="col-form-label">Genre</label>
+                            <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
                                     id="flexRadioDefault1" v-model="newGame.color">
                                 <label class="form-check-label" for="flexRadioDefault1">
@@ -32,7 +33,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked v-model="newGame.color">
+                                    id="flexRadioDefault2" checked>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Default checked radio
                                 </label>
@@ -51,17 +52,22 @@
 </template>
 
 <script>
+
 export default {
+
 
     data() {
         return {
-        
+
             newGame: {
                 label: '',
                 description: '',
                 date: '',
-                color:''
-      },
+                color: ''
+            }
+
+  
+
         }
 
     },
@@ -71,7 +77,7 @@ export default {
 
     methods: {
         postData() {
-            fetch('https://frontend-test-api.anothereality.io/data/create', {
+            fetch(process.env.VUE_APP_BASE_API_URL + '/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -91,7 +97,8 @@ export default {
                 .catch(error => {
                     console.error('Error:', error);
                 });
-        }
+        },
+ 
     }
 
 };

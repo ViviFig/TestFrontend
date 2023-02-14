@@ -3,22 +3,23 @@
 
 
   <div class="d-flex vh-100 justify-content-center align-items-center">
-    <div class="col-10"><games-list v-bind:games = "games"></games-list></div>
+    <div class="col-10"><games-list v-bind:games="games"></games-list></div>
   </div>
 
 
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       games: [],
-
+      lab: []
     };
   },
   mounted() {
-    fetch('https://frontend-test-api.anothereality.io/data/retrieve/all?api-version=1').then((response) => {
+    fetch(process.env.VUE_APP_BASE_API_URL + '/retrieve/all?api-version=1').then((response) => {
 
       if (response.ok) {
         return response.json();
@@ -36,12 +37,13 @@ export default {
           color: data[i].color
         });
       }
-      console.log(results);
+
       this.games = results;
 
     })
-  }
 
+
+  }
 
 };
 </script>

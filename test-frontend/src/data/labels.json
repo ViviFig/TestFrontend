@@ -1,0 +1,21 @@
+{
+        "navbar-title" : "Another Game",
+        "navbar-search-button": "Search",
+        "navbar-search-input-placeholder": "Search",
+        
+        "home-title": "Games catalogue",
+        "home-game-title": "Title",
+        "home-game-description": "Description",
+        "home-game-date": "Year",
+        "home-game-genre": "Genre",
+        "home-add-new-game-button": "+ Add new",
+
+        "modal-game-name": "Name",
+        "modal-game-name-placeholder": "Game name here...",
+        "modal-game-description": "Name",
+        "modal-game-description-placeholder": "Describe the game here...",
+        "modal-game-date": "Release date",
+        "modal-game-genre":"Genre",
+        "modal-save-button": "Save"
+    
+}

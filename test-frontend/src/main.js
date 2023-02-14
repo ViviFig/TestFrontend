@@ -5,7 +5,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import GamesList from './components/GamesList.vue'
 import AddModal from './components/AddModal.vue'
-
+//import Vue from "vue";
 
 import NavbarGames from './components/NavbarGames.vue'
 const app = createApp(App);
@@ -19,10 +19,5 @@ app.mount('#app');
 
 
 
-
-
 require('@/assets/style/anothergame.scss')
-
-
-
 

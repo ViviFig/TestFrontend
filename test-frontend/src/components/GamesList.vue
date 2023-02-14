@@ -1,13 +1,11 @@
 <template>
 
-  <div class="container" >
+  <div class="container">
     <add-modal v-if="popupTriggers.buttonTrigger" :ToggleModal="() => ToggleModal('buttonTrigger')" />
-
     <div class="justify-content-between d-flex flex-row">
       <h1 class="my-3">Games catalogue</h1>
       <button type="button" class="btn btn-primary btn-sm" @click="() => ToggleModal('buttonTrigger')">+ Add
         new</button>
-
     </div>
 
     <div class="justify-content-end d-flex flex-row my-4">
@@ -29,11 +27,11 @@
       </thead>
       <tbody>
         <tr v-for="game in games" :key="game.id">
-          <th scope="col">{{game.id }}</th>
+          <th scope="col">{{ game.id }}</th>
           <td>{{ game.label }}</td>
           <td> {{ game.description }}</td>
-          <td>{{ game.date }}</td>
-          <td>{{ game.color }}</td>
+          <td>{{ formattedDate(game.date) }}</td>
+          <td>{{ formattedGame(game.color) }}</td>
           <td><b-icon-info-square /></td>
           <td><b-icon-pencil-square /></td>
         </tr>
@@ -48,18 +46,15 @@
 <script>
 import { ref } from 'vue';
 import { AddModal } from './AddModal.vue';
-
-
+import genreHelper from '@/helpers/genreHelper';
 
 export default {
   props: ['games'],
-  data() {
-    return {
-      date: new Date()
-    };
-  },
+
+
+
   setup() {
-    
+
     const popupTriggers = ref({
       buttonTrigger: false,
     });
@@ -72,27 +67,37 @@ export default {
     return {
       AddModal,
       popupTriggers,
-      ToggleModal
+      ToggleModal,
+
+    }
+  },
+
+  computed: {
+    uppercase() {
+      return (v) => {
+        return v.toUpperCase()
+      }
+    },
+    formattedDate() {
+      return (v) => {
+        const dateToFormat = new Date(v);
+        return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(dateToFormat);
+      }
+    },
+
+    formattedGame(){
+      return(v) => {
+        return genreHelper(v);
+      }
     }
   },
 
   components: {
     AddModal,
-  },
-  methods: {
-    formatDate(dateString) {
-      const date = new Date(dateString);
 
-      return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(date);
-    },
-    truncate(value, length) {
-      if (value.length > length) {
-        return value.substring(0, length) + "...";
-      } else {
-        return value;
-      }
-    },
- }
+  }
+
+
 };
 </script>
 

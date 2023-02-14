@@ -11,6 +11,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons-vue": "^1.8.1",
     "core-js": "^3.8.3",
+    "dotenv": "^16.0.3",
     "sass": "^1.58.0",
     "sass-loader": "^13.2.0",
     "vue": "^3.2.13",
