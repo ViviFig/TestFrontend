@@ -67,7 +67,7 @@ export default {
     return {
       AddModal,
       popupTriggers,
-      ToggleModal,
+      ToggleModal
 
     }
   },

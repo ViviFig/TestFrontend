@@ -24,26 +24,20 @@
 
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Genre</label>
-                            <div class="form-check">
+                            <div class="form-check" v-for="genre in gens" :key="genre.key">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1" v-model="newGame.color">
+                                    id="flexRadioDefault1" :value=genre v-model="newGame.color">
                                 <label class="form-check-label" for="flexRadioDefault1">
-                                    Default radio
+                                    {{ genre }}
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    Default checked radio
-                                </label>
-                            </div>
+
                         </div>
 
                     </form>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-primary btn-sm" @click="postData">Save</button>
+                    <button type="submit" class="btn btn-primary btn-sm" @click="postData">Save</button>
                 </div>
             </div>
         </div>
@@ -52,10 +46,11 @@
 </template>
 
 <script>
+import genres from '../data/genres.json'
+import colorHelper from '@/helpers/colors';
 
 export default {
-
-
+   
     data() {
         return {
 
@@ -64,9 +59,9 @@ export default {
                 description: '',
                 date: '',
                 color: ''
-            }
+            },
+            gens: genres
 
-  
 
         }
 
@@ -76,6 +71,9 @@ export default {
     props: ['ToggleModal'],
 
     methods: {
+      
+
+
         postData() {
             fetch(process.env.VUE_APP_BASE_API_URL + '/create', {
                 method: 'POST',
@@ -86,7 +84,7 @@ export default {
                     label: this.newGame.label,
                     description: this.newGame.description,
                     date: this.newGame.date,
-                    color: this.newGame.color
+                    color: colorHelper(this.newGame.color)
 
                 })
             })
@@ -97,8 +95,10 @@ export default {
                 .catch(error => {
                     console.error('Error:', error);
                 });
+
+                this.ToggleModal();
         },
- 
+
     }
 
 };
