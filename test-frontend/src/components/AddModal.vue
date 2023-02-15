@@ -6,24 +6,24 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Name</label>
+                            <label for="recipient-name" class="col-form-label">{{getLabel("modal-game-name")}}</label>
                             <input type="text" class="form-control" id="recipient-name" placeholder="Game name here..."
                                 v-model="newGame.label">
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label"
-                                placeholder="Describe the game here...">Description:</label>
+                                placeholder="Describe the game here...">{{getLabel("modal-game-description")}}</label>
                             <textarea class="form-control" id="message-text" v-model="newGame.description"></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Release date</label>
+                            <label for="recipient-name" class="col-form-label">{{getLabel("modal-game-date")}}</label>
                             <input type="date" class="form-control" id="recipient-name" v-model="newGame.date">
                         </div>
 
 
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Genre</label>
+                            <label for="recipient-name" class="col-form-label">{{getLabel("modal-game-genre")}}</label>
                             <div class="form-check" v-for="genre in gens" :key="genre.key">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
                                     id="flexRadioDefault1" :value=genre v-model="newGame.color">
@@ -37,7 +37,7 @@
                     </form>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-sm" @click="postData">Save</button>
+                    <button type="submit" class="btn btn-primary btn-sm" @click="postData">{{getLabel("modal-save-button")}}</button>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
 <script>
 import genres from '../data/genres.json'
 import colorHelper from '@/helpers/colors';
-
+import labelHelper from '@/helpers/labelHelper';
 export default {
    
     data() {
@@ -69,7 +69,13 @@ export default {
     name: "add-modal",
 
     props: ['ToggleModal'],
-
+computed:{
+    getLabel(){
+      return(v) => {
+        return labelHelper(v);
+      }
+    }
+},
     methods: {
       
 

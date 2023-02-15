@@ -12,10 +12,12 @@
 
         "modal-game-name": "Name",
         "modal-game-name-placeholder": "Game name here...",
-        "modal-game-description": "Name",
+        "modal-game-description": "Description",
         "modal-game-description-placeholder": "Describe the game here...",
         "modal-game-date": "Release date",
         "modal-game-genre":"Genre",
-        "modal-save-button": "Save"
+        "modal-save-button": "Save",
     
+        "info-modal-close-button":"Chiudi",
+        "info-modal-release-date":"Data di rilascio:"
 }

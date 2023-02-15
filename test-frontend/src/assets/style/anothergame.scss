@@ -22,11 +22,24 @@ a.title-nav:hover {
     border-color: white;
 }
 
-
+.button-info{
+    cursor: pointer
+}
 .btn-display {
     background-color: white;
     border-color: grey;
     color: grey;
+    padding: 8px;
+    margin: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-display.disabled {
+    background-color: white;
+    border-color: rgb(206, 206, 206);
+    color: rgb(206, 206, 206);
     padding: 8px;
     margin: auto;
     cursor: pointer;

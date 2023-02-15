@@ -1,9 +1,9 @@
 <template>
-  <navbar-games></navbar-games>
+  <navbar-games @search="onSearch"></navbar-games>
 
-
-  <div class="d-flex vh-100 justify-content-center align-items-center">
-    <div class="col-10"><games-list v-bind:games="games"></games-list></div>
+  <!--  -->
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="col-10"><games-list :games="games" v-model:inputSearch="searchInput"> </games-list></div>
   </div>
 
 
@@ -11,14 +11,33 @@
 
 <script>
 
+
 export default {
+
+
   data() {
     return {
       games: [],
-      lab: []
+      
+
     };
   },
+
+  methods: {
+    onSearch: (val) => {
+      const searchInput = val
+      
+    return {
+      searchInput
+    }
+
+    }
+
+  },
+
   mounted() {
+
+
     fetch(process.env.VUE_APP_BASE_API_URL + '/retrieve/all?api-version=1').then((response) => {
 
       if (response.ok) {
@@ -27,7 +46,7 @@ export default {
 
     }).then((data) => {
       const results = [];
-      console.log(data.length);
+
       for (let i = 0; i < data.length; i++) {
         results.push({
           id: data[i].id,
