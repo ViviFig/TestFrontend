@@ -8,11 +8,10 @@ import NavbarGames from './components/NavbarGames.vue'
 import AddModal from './components/AddModal.vue'
 import InfoModal from './components/InfoModal.vue'
 
-//import Vue from "vue";
 
 const app = createApp(App);
 
-app.config.globalProperties.$searchInput = ""
+// app.config.globalProperties.$searchInput = ""
 
 app.component('games-list', GamesList);
 app.component('navbar-games',NavbarGames);

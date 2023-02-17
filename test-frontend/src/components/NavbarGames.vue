@@ -6,10 +6,10 @@
     <a class="mx-2 title-nav navbar-brand">{{ getLabel("navbar-title") }}</a>
     <form class="row ms-auto mx-2">
       <div class="col">
-        <input class="form-control mr-sm-2" type="search" :placeholder="searchPlaceholder" v-model="searchInput">
+        <input class="form-control mr-sm-2" type="search" :placeholder="searchPlaceholder" disabled>
       </div>
       <div class="col-auto">
-        <button class="btn my-2 my-sm-0 navbutton" type="button"  @click="buttonSearchcliked" >{{ getLabel("navbar-search-button") }} </button>
+        <button class="btn my-2 my-sm-0 navbutton" type="button"  disabled>{{ getLabel("navbar-search-button") }} </button>
       </div>
     </form>
   </nav>
@@ -17,17 +17,12 @@
 
 <script>
 import labelHelper from '@/helpers/labelHelper';
-import { ref } from "vue";
+
 
 
 
 export default {
 
-
-  setup() {
-    const searchInput = ref("");
-    return { searchInput };
-  },
 
   computed: {
     searchPlaceholder: {
@@ -40,7 +35,7 @@ export default {
       }
 
     },
-
+ //gets a label from its key
     getLabel() {
       return (v) => {
         return labelHelper(v);
@@ -56,10 +51,10 @@ export default {
   methods: {
     
     
-    buttonSearchcliked() {
-      this.$emit('search', this.searchInput)
+    // buttonSearchcliked() {
+    //   this.$emit('search', this.searchInput)
    
-    }
+    // }
 
   }
 };

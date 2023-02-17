@@ -1,30 +1,32 @@
 <template>
-    <div class="modal" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true"
-         >
+    <div class="modal" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
         <div class="modal-dialog" @click.stop="">
             <div class="modal-content modal-large px-5 py-4">
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <h3>{{data.label}}</h3>
+                            <h3>{{ data.label }}</h3>
                         </div>
                         <div class="mb-3">
-                            <p> <span class="fw-bold">{{getLabel("info-modal-release-date")}}</span> {{ formattedDate(data.date) }}</p>
-</div>
-                        <div class="mb-3">
-                            <p>{{data.description}}</p>
+                            <p> <span class="fw-bold">{{ getLabel("info-modal-release-date") }}</span> {{
+                                formattedDate(data.date)
+                            }}</p>
                         </div>
-
                         <div class="mb-3">
-                            <p>{{data.genre}}</p>
+                            <p>{{ data.description }}</p>
                         </div>
 
-                       
+                        <div class="mb-3">
+                            <p>{{ data.genre }}</p>
+                        </div>
+
+
 
                     </form>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-sm" @click="ToggleModalInfo()">{{getLabel("info-modal-close-button")}}</button>
+                    <button type="submit" class="btn btn-primary btn-sm"
+                        @click="ToggleModalInfo()">{{ getLabel("info-modal-close-button") }}</button>
                 </div>
             </div>
         </div>
@@ -40,23 +42,25 @@ export default {
 
     name: "info-modal",
 
-    props: ['ToggleModalInfo','data'],
+    props: ['ToggleModalInfo', 'data'],
 
 
 
     computed: {
+        //gets a label from its key
         getLabel() {
             return (v) => {
                 return labelHelper(v);
             }
         },
+        //format date to dd/MM/yyyy
         formattedDate() {
-      return (v) => {
-        const dateToFormat = new Date(v);
-        return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(dateToFormat);
-      }
-    },
-    
+            return (v) => {
+                const dateToFormat = new Date(v);
+                return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(dateToFormat);
+            }
+        },
+
     },
 
 

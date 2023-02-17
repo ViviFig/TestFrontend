@@ -2,7 +2,8 @@
 
   <div class="container my-3">
     <add-modal v-if="popupTriggers.buttonTrigger" :ToggleModal="() => ToggleModal('buttonTrigger')" />
-
+    <add-modal v-if="popupTriggers.iconTrigger" :ToggleModal="() => ToggleModal('iconTrigger')"
+      :gameToModify="modalData" />
     <info-modal v-if="infomodalTriggers.iconTrigger" :ToggleModalInfo="() => ToggleModalInfo('iconTrigger')"
       :data="modalData" />
 
@@ -36,9 +37,9 @@
           <td>{{ game.label }}</td>
           <td> {{ game.description }}</td>
           <td>{{ formattedDate(game.date) }}</td>
-          <td>{{ formattedGame(game.color) }}</td>
+          <td>{{ formattedGenre(game.color) }}</td>
           <td><b-icon-info-square @click="() => openModal(game)" class="button-info" /></td>
-          <td><b-icon-pencil-square /></td>
+          <td><b-icon-pencil-square @click="() => openModifyModal(game)" class="button-info" /></td>
         </tr>
 
       </tbody>
@@ -51,41 +52,36 @@
 <script>
 import { ref } from 'vue';
 import { AddModal } from './AddModal.vue';
-
 import { InfoModal } from './InfoModal.vue';
 import genreHelper from '@/helpers/genreHelper';
 import labelHelper from '@/helpers/labelHelper';
 export default {
+
   props: ['games', 'inputSearch'],
-watch:{
-  inputSearch: function (val) {
-      
-      console.log(val); 
-    },
-},
+
 
   data() {
     return {
       infovisible: false,
+      //game data 
       modalData: null,
-  
+
     }
   },
 
-  mounted() {
-console.log(this.inputSearch);
-
-  },
 
   setup() {
 
-
+    //triggers for AddModal
     const popupTriggers = ref({
       buttonTrigger: false,
+      iconTrigger: false
     });
+    //triggers for InfoModal
     const infomodalTriggers = ref({
       iconTrigger: false,
     });
+
 
     const ToggleModal = (trigger) => {
       popupTriggers.value[trigger] = !popupTriggers.value[trigger]
@@ -96,12 +92,13 @@ console.log(this.inputSearch);
 
     };
 
+
     return {
       AddModal,
       popupTriggers,
       infomodalTriggers,
       ToggleModal,
-      ToggleModalInfo
+      ToggleModalInfo,
 
     }
   },
@@ -112,6 +109,7 @@ console.log(this.inputSearch);
         return v.toUpperCase()
       }
     },
+    //format date to dd/MM/yyyy 
     formattedDate() {
       return (v) => {
         const dateToFormat = new Date(v);
@@ -119,12 +117,13 @@ console.log(this.inputSearch);
       }
     },
 
-    formattedGame() {
+    //returns the genre by the color
+    formattedGenre() {
       return (v) => {
         return genreHelper(v);
       }
     },
-
+    //gets a label from its key
     getLabel() {
       return (v) => {
         return labelHelper(v);
@@ -138,8 +137,11 @@ console.log(this.inputSearch);
       this.modalData = data
       this.ToggleModalInfo('iconTrigger')
     },
+    openModifyModal(data) {
+      this.modalData = data
+      this.ToggleModal('iconTrigger')
+    },
 
-  
   },
 
 

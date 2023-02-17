@@ -1,52 +1,51 @@
 <template>
-  <navbar-games @search="onSearch"></navbar-games>
-
-  <!--  -->
+  <navbar-games ></navbar-games>
   <div class="d-flex justify-content-center align-items-center">
-    <div class="col-10"><games-list :games="games" v-model:inputSearch="searchInput"> </games-list></div>
+    <div class="col-10"><games-list :games="games" > </games-list></div>
   </div>
-
-
 </template>
 
 <script>
 
-
+//import { signin } from '../src/services/service.js';
+import { getAll } from '../src/services/service-v1.js';
+//import jwt from 'jsonwebtoken';
 export default {
 
 
   data() {
     return {
       games: [],
-      
-
+      // username: process.env.VUE_APP_USERNAME,
+      // password: process.env.VUE_APP_PASSWORD,
+      // authenticationScheme: {
+      //   bearer: "",
+      //   expiry: "",
+      //   apiLabel: ""
+      // },
+      // config: null
     };
   },
 
-  methods: {
-    onSearch: (val) => {
-      const searchInput = val
-      
-    return {
-      searchInput
-    }
+  // methods: {
 
-    }
-
-  },
+  //   submit(username, password) {
+  //     signin(username, password).then(auth => {
+  //       this.authenticationScheme = auth.data
+  //       this.config =jwt.decode(this.authenticationScheme.bearer)
+  //     console.log(this.config);
+  //     }).then(() => {
+  //       getAll(this.config).then(data => {
+  //         console.log(data)
+  //       })
+  //     })
+  //   }
+  // },
 
   mounted() {
+    getAll().then((data) => {
 
-
-    fetch(process.env.VUE_APP_BASE_API_URL + '/retrieve/all?api-version=1').then((response) => {
-
-      if (response.ok) {
-        return response.json();
-      }
-
-    }).then((data) => {
       const results = [];
-
       for (let i = 0; i < data.length; i++) {
         results.push({
           id: data[i].id,
@@ -56,12 +55,8 @@ export default {
           color: data[i].color
         });
       }
-
       this.games = results;
-
     })
-
-
   }
 
 };
