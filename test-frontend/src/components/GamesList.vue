@@ -35,7 +35,7 @@
 
           <th scope="col">{{ game.id }}</th>
           <td>{{ game.label }}</td>
-          <td> {{ game.description }}</td>
+          <td> {{ truncate(game.description,90) }}</td>
           <td>{{ formattedDate(game.date) }}</td>
           <td>{{ formattedGenre(game.color) }}</td>
           <td><b-icon-info-square @click="() => openModal(game)" class="button-info" /></td>
@@ -116,7 +116,7 @@ export default {
         return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(dateToFormat);
       }
     },
-
+ 
     //returns the genre by the color
     formattedGenre() {
       return (v) => {
@@ -132,7 +132,13 @@ export default {
   },
 
   methods: {
-
+    truncate(value, length) {
+      if (value.length > length) {
+        return value.substring(0, length) + "...";
+      } else {
+        return value;
+      }
+    },
     openModal(data) {
       this.modalData = data
       this.ToggleModalInfo('iconTrigger')
