@@ -1,23 +1,23 @@
 {
-        "navbar-title" : "Another Game",
+        "navbar-title": "Another Game",
         "navbar-search-button": "Search",
         "navbar-search-input-placeholder": "Search",
-        
         "home-title": "Games catalogue",
         "home-game-title": "Title",
         "home-game-description": "Description",
         "home-game-date": "Year",
         "home-game-genre": "Genre",
         "home-add-new-game-button": "+ Add new",
-
         "modal-game-name": "Name",
         "modal-game-name-placeholder": "Game name here...",
         "modal-game-description": "Description",
         "modal-game-description-placeholder": "Describe the game here...",
         "modal-game-date": "Release date",
-        "modal-game-genre":"Genre",
+        "modal-game-genre": "Genre",
         "modal-save-button": "Save",
-    
-        "info-modal-close-button":"Chiudi",
-        "info-modal-release-date":"Data di rilascio:"
+        "modal-cancel-button": "Cancel",
+        "modal-edit-title": "Edit Game",
+        "modal-newgame-title": "New Game",
+        "info-modal-close-button": "Chiudi",
+        "info-modal-release-date": "Data di rilascio:"
 }

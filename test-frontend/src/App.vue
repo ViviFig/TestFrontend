@@ -1,7 +1,7 @@
 <template>
-  <navbar-games ></navbar-games>
+  <navbar-games @search="handleSearch"></navbar-games>
   <div class="d-flex justify-content-center align-items-center">
-    <div class="col-10"><games-list :games="games" > </games-list></div>
+    <div class="col-10"><games-list :games="games" :search="searchText"> </games-list></div>
   </div>
 </template>
 
@@ -15,7 +15,10 @@ export default {
 
   data() {
     return {
-      games: [],
+      searchText: '',
+
+      games: []
+      ,
       // username: process.env.VUE_APP_USERNAME,
       // password: process.env.VUE_APP_PASSWORD,
       // authenticationScheme: {
@@ -27,20 +30,22 @@ export default {
     };
   },
 
-  // methods: {
-
-  //   submit(username, password) {
-  //     signin(username, password).then(auth => {
-  //       this.authenticationScheme = auth.data
-  //       this.config =jwt.decode(this.authenticationScheme.bearer)
-  //     console.log(this.config);
-  //     }).then(() => {
-  //       getAll(this.config).then(data => {
-  //         console.log(data)
-  //       })
-  //     })
-  //   }
-  // },
+  methods: {
+    handleSearch(s) {
+      this.searchText = s
+    }
+    // submit(username, password) {
+    //   signin(username, password).then(auth => {
+    //     this.authenticationScheme = auth.data
+    //     this.config =jwt.decode(this.authenticationScheme.bearer)
+    //   console.log(this.config);
+    //   }).then(() => {
+    //     getAll(this.config).then(data => {
+    //       console.log(data)
+    //     })
+    //   })
+    // }
+  },
 
   mounted() {
     getAll().then((data) => {

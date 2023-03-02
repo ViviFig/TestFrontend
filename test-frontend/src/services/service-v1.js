@@ -45,9 +45,9 @@ const add = async (item) => {
         });
 }
 const edit = async (item) => {
-    
+
     fetch(process.env.VUE_APP_BASE_API_URL + '/data/update?api-version=' + process.env.VUE_APP_API_VERSION, {
-       
+
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -72,8 +72,21 @@ const edit = async (item) => {
 
 
 }
+
+
+const deleteItem = async (id) => {
+    fetch(process.env.VUE_APP_BASE_API_URL + '/data/delete/' + id + '?api-version=' + process.env.VUE_APP_API_VERSION, {
+
+        method: 'DELETE'
+
+    });
+
+
+}
+
 export {
     edit,
     add,
-    getAll
+    getAll,
+    deleteItem
 }

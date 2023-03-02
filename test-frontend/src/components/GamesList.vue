@@ -1,5 +1,4 @@
 <template>
-
   <div class="container my-3">
     <add-modal v-if="popupTriggers.buttonTrigger" :ToggleModal="() => ToggleModal('buttonTrigger')" />
     <add-modal v-if="popupTriggers.iconTrigger" :ToggleModal="() => ToggleModal('iconTrigger')"
@@ -18,35 +17,63 @@
       <button class="btn btn-display mx-2 disabled"><b-icon-grid /></button>
     </div>
 
-    <table class="table table-striped table-responsive ">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">{{ getLabel("home-game-title") }}</th>
-          <th scope="col">{{ getLabel("home-game-description") }}</th>
-          <th scope="col">{{ getLabel("home-game-date") }}</th>
-          <th scope="col">{{ getLabel("home-game-genre") }}</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="game in games" :key="game.id">
+    <!--#region TABLE  -->
+    <div class="table-responsive-sm" v-if="cardslayout == false">
+      <table class="table table-striped ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{ getLabel("home-game-title") }}</th>
+            <th scope="col" class="d-none d-md-table-cell">{{ getLabel("home-game-description") }}</th>
+            <th scope="col" class="d-none d-sm-table-cell">{{ getLabel("home-game-date") }}</th>
+            <th scope="col">{{ getLabel("home-game-genre") }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="game in filteredGames" :key="game.id">
 
-          <th scope="col">{{ game.id }}</th>
-          <td>{{ game.label }}</td>
-          <td> {{ truncate(game.description,90) }}</td>
-          <td>{{ formattedDate(game.date) }}</td>
-          <td>{{ formattedGenre(game.color) }}</td>
-          <td><b-icon-info-square @click="() => openModal(game)" class="button-info" /></td>
-          <td><b-icon-pencil-square @click="() => openModifyModal(game)" class="button-info" /></td>
-        </tr>
+            <th scope="col">{{ game.id }}</th>
+            <td>{{ game.label }}</td>
+            <td class="d-none d-md-table-cell"> {{ truncate(game.description, 90) }}</td>
+            <td class="d-none d-sm-table-cell">{{ formattedDate(game.date) }}</td>
+            <td>{{ formattedGenre(game.color) }}</td>
+            <td><b-icon-info-square @click="() => openModal(game)" class="button-info" /></td>
+            <td><b-icon-pencil-square @click="() => openModifyModal(game)" class="button-info" /></td>
+            <td><b-icon-trash @click="() => Itemdelete(game.id)" class="button-info" /></td>
+          </tr>
 
-      </tbody>
+        </tbody>
 
-    </table>
+      </table>
+
+    </div>
+
+
+    <!--#endregion  -->
+
+
+
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" v-if="cardslayout == true">
+
+
+      <div class="col-6">
+        <div class="card" v-for="game in games" :key="game.id">
+          <div class="card-body">
+            <h5 class="card-title">{{ game.label }}</h5>
+            <p class="card-text">{{ formattedDate(game.date) }}</p>
+            <p class="card-text">{{ formattedGenre(game.color) }}</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
-
 </template>
 
 <script>
@@ -55,13 +82,35 @@ import { AddModal } from './AddModal.vue';
 import { InfoModal } from './InfoModal.vue';
 import genreHelper from '@/helpers/genreHelper';
 import labelHelper from '@/helpers/labelHelper';
+import { deleteItem } from '../services/service-v1';
+
+
 export default {
 
-  props: ['games', 'inputSearch'],
+  props: ['games', 'search'],
+  watch: {
 
+    search() {
+
+      if (this.search == undefined || this.search == '') {
+        this.filteredGames = this.games;
+      }
+      else {
+        this.filteredGames = this.returnFilteredGames;
+      }
+
+    },
+
+    games() {
+      this.filteredGames = this.games
+    }
+  },
 
   data() {
     return {
+
+      cardslayout: false,
+      filteredGames: this.games,
       infovisible: false,
       //game data 
       modalData: null,
@@ -69,9 +118,13 @@ export default {
     }
   },
 
+  mounted() {
 
+
+    this.filteredGames = this.games;
+
+  },
   setup() {
-
     //triggers for AddModal
     const popupTriggers = ref({
       buttonTrigger: false,
@@ -104,6 +157,14 @@ export default {
   },
 
   computed: {
+
+    returnFilteredGames() {
+      return this.games.filter(
+        game => this.uppercase(game.label).includes(this.uppercase(this.search)) || this.uppercase(game.description).includes(this.uppercase(this.search))
+      );
+    },
+
+
     uppercase() {
       return (v) => {
         return v.toUpperCase()
@@ -116,7 +177,7 @@ export default {
         return new Intl.DateTimeFormat('default', { dateStyle: 'short' }).format(dateToFormat);
       }
     },
- 
+
     //returns the genre by the color
     formattedGenre() {
       return (v) => {
@@ -147,6 +208,15 @@ export default {
       this.modalData = data
       this.ToggleModal('iconTrigger')
     },
+
+    Itemdelete(data) {
+
+      deleteItem(data);
+      setTimeout(function () {
+        window.location.reload();
+      }, 800);
+    },
+
 
   },
 

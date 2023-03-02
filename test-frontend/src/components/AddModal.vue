@@ -1,7 +1,12 @@
 <template>
-    <div class="modal" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" @click="ToggleModal()">
+    <div class="modal" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" @click="ToggleModal()"
+        autofocus @keydown.esc="ToggleModal()" ref="filter">
         <div class="modal-dialog " @click.stop="">
             <div class="modal-content modal-large px-5 py-4">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ modalTitle }}</h5>
+                </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
@@ -42,6 +47,11 @@
                     <button type="submit" class="btn btn-primary btn-sm" @click="postData" :disabled="isDisable">{{
                         getLabel("modal-save-button")
                     }}</button>
+
+                    <button type="button" class="btn btn-primary btn-sm" @click="cancelForm">{{
+                        getLabel("modal-cancel-button")
+                    }}</button>
+
                 </div>
             </div>
         </div>
@@ -54,7 +64,28 @@ import colorHelper from '@/helpers/colors';
 import labelHelper from '@/helpers/labelHelper';
 import { edit } from '../services/service-v1.js';
 import { add } from '../services/service-v1.js';
+import { ref, onMounted, nextTick } from 'vue';
 export default {
+
+
+
+    setup() {
+        
+        const filter = ref(null);
+
+        onMounted(() => {
+            nextTick(() => {
+                filter.value.focus();
+            });
+
+          
+        });
+
+        return {
+            filter
+        };
+    },
+
     data() {
         return {
             //date variable to be formatted
@@ -67,8 +98,8 @@ export default {
                 color: ''
             },
             //list of genres
-            gens: genres
-
+            gens: genres,
+            modalTitle: ''
 
         }
 
@@ -77,9 +108,13 @@ export default {
 
     props: ['ToggleModal', 'gameToModify'],
 
+
+
     mounted() {
+
         //check if the game needs to be modified
         if (this.gameToModify != undefined) {
+
             this.gamedate = this.formattedInputDate(this.gameToModify.date)
             this.newGame = {
                 id: this.gameToModify.id,
@@ -90,10 +125,12 @@ export default {
             }
         }
 
+
+        this.getModalTitle();
     },
 
     computed: {
-//disables save button
+        //disables save button
         isDisable() {
             if (this.newGame.label == "" || this.newGame.description == "" || this.newGame.date.length === 0 || this.newGame.color === "") {
                 return true;
@@ -102,6 +139,9 @@ export default {
 
 
         },
+
+
+
 
         //gets a label from its key
         getLabel() {
@@ -135,7 +175,24 @@ export default {
 
     methods: {
 
+        cancelForm() {
+            this.newGame = {
+                label: '',
+                description: '',
+                date: '',
+                color: ''
+            }
+        },
 
+        getModalTitle() {
+
+            if (this.gameToModify != undefined) {
+                this.modalTitle = "Edit Game";
+            }
+            else {
+                this.modalTitle = "New Game";
+            }
+        },
         //connect to service and add/edit a record
         postData() {
             if (this.gameToModify == undefined) {

@@ -6,10 +6,15 @@
     <a class="mx-2 title-nav navbar-brand">{{ getLabel("navbar-title") }}</a>
     <form class="row ms-auto mx-2">
       <div class="col">
-        <input class="form-control mr-sm-2" type="search" :placeholder="searchPlaceholder" disabled>
+        <input class="form-control mr-sm-2" 
+        type="search" :placeholder="searchPlaceholder"
+        v-model="searchText" >
       </div>
       <div class="col-auto">
-        <button class="btn my-2 my-sm-0 navbutton" type="button"  disabled>{{ getLabel("navbar-search-button") }} </button>
+        <button class="btn my-2 my-sm-0 navbutton" type="button" 
+        @click="buttonSearchcliked"
+        
+        >{{ getLabel("navbar-search-button") }} </button>
       </div>
     </form>
   </nav>
@@ -23,6 +28,12 @@ import labelHelper from '@/helpers/labelHelper';
 
 export default {
 
+  data(){
+    return{
+      searchText: ''
+
+    }
+  },
 
   computed: {
     searchPlaceholder: {
@@ -49,12 +60,12 @@ export default {
   },
 
   methods: {
+
     
-    
-    // buttonSearchcliked() {
-    //   this.$emit('search', this.searchInput)
+    buttonSearchcliked() {
+      this.$emit('search', this.searchText)
    
-    // }
+    }
 
   }
 };
